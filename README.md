@@ -1,3 +1,4 @@
+```sh
                       oooo                  
                       `888                  
 ooo. .oo.    .oooo.    888  oooo   .oooo.   
@@ -8,3 +9,4 @@ o888o o888o `Y888""8o o888o o888o `Y888""8o
                                             
         [ 中 ] naka
      "The key is inside."
+```
