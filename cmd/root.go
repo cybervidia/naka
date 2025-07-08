@@ -1,16 +1,14 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
 )
-
-
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -24,7 +22,18 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("                      oooo                  \n" +
+			"                      `888                  \n" +
+			"ooo. .oo.    .oooo.    888  oooo   .oooo.   \n" +
+			"`888P\"Y88b  `P  )88b   888 .8P'   `P  )88b  \n" +
+			" 888   888   .oP\"888   888888.     .oP\"888  \n" +
+			" 888   888  d8(  888   888 `88b.  d8(  888  \n" +
+			"o888o o888o `Y888\"\"8o o888o o888o `Y888\"\"8o \n" +
+			"                                            \n" +
+			"        [ 中 ] naka\n" +
+			"     \"The key is inside.\"")
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -47,5 +56,3 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-

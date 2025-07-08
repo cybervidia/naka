@@ -41,3 +41,6 @@ build.sh
 
 #Mac
 .DS_Store
+
+#Reference & Notes
+crypt_for_reference.go
