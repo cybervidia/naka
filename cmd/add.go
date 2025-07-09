@@ -1,12 +1,13 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
 
+	"github.com/cybervidia/naka/db"
+	"github.com/cybervidia/naka/model"
 	"github.com/spf13/cobra"
 )
 
@@ -22,6 +23,23 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("add called")
+
+		//per il momento, punto ad mvp e inserisco i dati da cmd
+		//con il formato:
+		//naka add <unique-name> <mail/username> <pwd> <notes>
+
+		if len(args) != 4 {
+			fmt.Println("syntax error, use:\nnaka add <unique-name> <mail/username> <pwd> <notes>")
+			return
+		}
+		scrt := model.SecretEntry{
+			Name:     args[0],
+			Mail:     args[1],
+			Password: args[2],
+			Note:     args[3],
+			IV:       "stringapercryptare", //non ancora inplementato
+		}
+		db.AddSecret(&scrt)
 	},
 }
 
