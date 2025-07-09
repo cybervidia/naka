@@ -45,6 +45,10 @@ func AddSecret(secret *model.SecretEntry) {
 
 }
 
+
+/*
+Helper method that retrn the path where the executable live with a db fine added at the end
+*/
 func getDatabasePath() (string, error) {
 	exePath, err := os.Executable()
 	if err != nil {
