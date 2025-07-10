@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/atotto/clipboard"
 	"github.com/cybervidia/naka/model"
 	"github.com/pterm/pterm"
 	"gorm.io/driver/sqlite"
@@ -91,6 +92,33 @@ func ListSecret() {
 
 	alternateStyle := pterm.NewStyle(pterm.BgDarkGray)
 	pterm.DefaultTable.WithHasHeader().WithBoxed().WithData(tableData).WithAlternateRowStyle(alternateStyle).Render()
+}
+
+func GetSecret(name string) {
+
+	dbPath, err := getDatabasePath()
+	if err != nil {
+		log.Fatalf("Failed to get database path: %v", err)
+	}
+
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	db.AutoMigrate(&model.SecretEntry{})
+
+	secret := model.SecretEntry{}
+	db.First(&secret, "name = ?", name) // carica il record
+
+	err = clipboard.WriteAll(secret.Password)
+	if err != nil {
+		fmt.Println("Errore nel copiare nella clipboard:", err)
+		return
+	}
+	fmt.Println("Testo copiato nella clipboard:", secret.Password)
 }
 
 /*
