@@ -38,7 +38,7 @@ to quickly create a Cobra application.`,
 			Mail:     args[1],
 			Password: args[2],
 			Note:     args[3],
-			IV:       "stringapercryptare", //non ancora inplementato
+			// IV:       "stringapercryptare", //non ancora inplementato
 		}
 
 		vault.Lock(&scrt)

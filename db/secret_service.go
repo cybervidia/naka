@@ -9,6 +9,7 @@ import (
 
 	"github.com/atotto/clipboard"
 	"github.com/cybervidia/naka/model"
+	"github.com/cybervidia/naka/vault"
 	"github.com/pterm/pterm"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -112,6 +113,9 @@ func GetSecret(name string) {
 
 	secret := model.SecretEntry{}
 	db.First(&secret, "name = ?", name) // carica il record
+
+	//qui devo decriptare la pwd
+	vault.Unlock(&secret)
 
 	err = clipboard.WriteAll(secret.Password)
 	if err != nil {

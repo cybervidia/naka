@@ -5,17 +5,48 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
 	"io"
 
 	"github.com/cybervidia/naka/model"
 	"golang.org/x/crypto/argon2"
 )
 
-func Unlock(record model.SecretEntry) model.SecretEntry {
-	return model.SecretEntry{} //solo per far campilare
+func Unlock(record *model.SecretEntry) {
+
+	pwdDaChiedereAUser := "PWD_INSERITA_DA_CMDLINE"
+
+	ciphertext, err := base64.StdEncoding.DecodeString(record.Password)
+	if err != nil {
+		panic(err)
+	}
+
+	iv, err := base64.StdEncoding.DecodeString(record.IV)
+	if err != nil {
+		panic(err)
+	}
+
+	salt, err := base64.StdEncoding.DecodeString(record.Salt)
+	if err != nil {
+		panic(err)
+	}
+
+	key := deriveKey(pwdDaChiedereAUser, salt)
+
+	fmt.Println("unlock key:", key)
+
+	plain, err := decryptAESGCM(ciphertext, iv, key)
+	if err != nil {
+		panic(err)
+	}
+	// record.Password = base64.StdEncoding.EncodeToString(plain)
+	record.Password = string(plain)
+	// record.Password = plain
 }
 
 func Lock(record *model.SecretEntry) {
+
+	pwdDaChiedereAUser := "PWD_INSERITA_DA_CMDLINE"
 
 	salt := make([]byte, 16) // 16 bytes = 128 bit
 	_, err := rand.Read(salt)
@@ -24,10 +55,11 @@ func Lock(record *model.SecretEntry) {
 	}
 
 	// === CREA LA CHIAVE AES A 256 BIT ===
-	key := deriveKey(record.Password, []byte(salt))
+	key := deriveKey(pwdDaChiedereAUser, []byte(salt))
 
+	fmt.Println("lock key:", key)
 	// === CIFRA LA PASSWORD === qui cifro la password,
-	// "plainPassword" passando anche la key
+	// "record.Password" passando anche la key
 	// mi restituisce un array di dati anzi 2,
 	//  il testo cifrato e l'initialization vector
 	//  tutti e 2 sotto forma di byte
