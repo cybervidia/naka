@@ -8,6 +8,7 @@ import (
 
 	"github.com/cybervidia/naka/db"
 	"github.com/cybervidia/naka/model"
+	"github.com/cybervidia/naka/vault"
 	"github.com/spf13/cobra"
 )
 
@@ -39,6 +40,8 @@ to quickly create a Cobra application.`,
 			Note:     args[3],
 			IV:       "stringapercryptare", //non ancora inplementato
 		}
+
+		vault.Lock(&scrt)
 		db.AddSecret(&scrt)
 	},
 }

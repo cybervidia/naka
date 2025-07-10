@@ -11,4 +11,5 @@ type SecretEntry struct {
 	Password string //password o segreto da salvare criptato!!!
 	Note     string
 	IV       string //initilization vector
+	Salt     string
 }
