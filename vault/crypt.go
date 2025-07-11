@@ -9,12 +9,18 @@ import (
 	"io"
 
 	"github.com/cybervidia/naka/model"
+	"github.com/pterm/pterm"
 	"golang.org/x/crypto/argon2"
 )
 
 func Unlock(record *model.SecretEntry) {
 
-	pwdDaChiedereAUser := "PWD_INSERITA_DA_CMDLINE"
+	pwdInput := pterm.DefaultInteractiveTextInput.WithMask("中")
+
+	pwdDaChiedereAUser, err := pwdInput.Show("中put your seal here")
+	if err != nil {
+		panic(err)
+	}
 
 	ciphertext, err := base64.StdEncoding.DecodeString(record.Password)
 	if err != nil {
@@ -46,10 +52,16 @@ func Unlock(record *model.SecretEntry) {
 
 func Lock(record *model.SecretEntry) {
 
-	pwdDaChiedereAUser := "PWD_INSERITA_DA_CMDLINE"
+	//chiedo la password all'utente e la copro con 中 per non farla vedere
+	pwdInput := pterm.DefaultInteractiveTextInput.WithMask("中")
+	pwdDaChiedereAUser, err := pwdInput.Show("中put your seal here")
+
+	if err != nil {
+		panic(err)
+	}
 
 	salt := make([]byte, 16) // 16 bytes = 128 bit
-	_, err := rand.Read(salt)
+	_, err = rand.Read(salt)
 	if err != nil {
 		panic("Errore nella generazione del salt: " + err.Error())
 	}
