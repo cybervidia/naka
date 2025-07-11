@@ -91,7 +91,7 @@ naka delete github_user
     
 - [SQLite](https://www.sqlite.org/index.html)
 
-- [PTerm] (https://github.com/pterm/pterm)
+- [PTerm](https://github.com/pterm/pterm)
     
 
 ## 🗝️ License
