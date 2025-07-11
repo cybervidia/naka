@@ -18,7 +18,6 @@ var addCmd = &cobra.Command{
 	Short: "Add a new password entry",
 	Long:  `Adds a new password entry to the local encrypted database. The entry must have a unique name, a user or email, the password to store, and an optional note or suggestion.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("add called")
 
 		//per il momento, punto ad mvp e inserisco i dati da cmd
 		//con il formato:
@@ -33,7 +32,6 @@ var addCmd = &cobra.Command{
 			Mail:     args[1],
 			Password: args[2],
 			Note:     args[3],
-			// IV:       "stringapercryptare", //non ancora inplementato
 		}
 
 		vault.Lock(&scrt)

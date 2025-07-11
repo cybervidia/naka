@@ -40,14 +40,14 @@ func AddSecret(secret *model.SecretEntry) {
 
 	if result.Error != nil {
 		if strings.Contains(result.Error.Error(), "UNIQUE constraint failed") {
-			fmt.Println("Errore: nome duplicato")
+			fmt.Println("Error: name already in use")
 		} else {
-			fmt.Println("Errore generico:", result.Error)
+			fmt.Println("Generic error:", result.Error)
 		}
 		return // o os.Exit(1)
 	}
 
-	fmt.Println("Secret <", secret.Name, "> inserito con successo")
+	fmt.Println("Secret <", secret.Name, "> successfully inserted")
 
 }
 
@@ -70,8 +70,6 @@ func ListSecret() {
 
 	result := db.Find(&secrets)
 
-	// codice di esempio per list da bookmark app in go, poi CANCELLALO!!!!!
-
 	err = result.Error // returns error
 
 	if err != nil {
@@ -85,11 +83,10 @@ func ListSecret() {
 
 	for _, secret := range secrets {
 		row := []string{
-			//fmt.Sprintf("%d", secret.ID),
 			secret.Name,
 			secret.Mail,
 			secret.Password,
-			secret.Name,
+			secret.Note,
 		}
 		tableData = append(tableData, row)
 	}
@@ -122,10 +119,10 @@ func GetSecret(name string) {
 
 	err = clipboard.WriteAll(secret.Password)
 	if err != nil {
-		fmt.Println("Errore nel copiare nella clipboard:", err)
+		fmt.Println("Error in coping to clipboard:", err)
 		return
 	}
-	fmt.Println("Testo copiato nella clipboard:", secret.Password)
+	fmt.Println("Password copied in clipboard:") //, secret.Password)
 }
 
 func DeleteSecret(name string) {
@@ -150,6 +147,33 @@ func DeleteSecret(name string) {
 	fmt.Println("secret deleted:", secret.Name)
 }
 
+func UpdateSecret(secret *model.SecretEntry) {
+	dbPath, err := getDatabasePath()
+	if err != nil {
+		log.Fatalf("Failed to get database path: %v", err)
+	}
+
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	db.AutoMigrate(&model.SecretEntry{})
+
+	oldSecret := model.SecretEntry{}
+	db.First(&oldSecret, "name = ?", secret.Name) // carica il record
+	oldSecret.Name = secret.Name
+	oldSecret.Mail = secret.Mail
+	oldSecret.Password = secret.Password
+	oldSecret.Note = secret.Note
+	oldSecret.IV = secret.IV
+	oldSecret.Salt = secret.Salt
+
+	db.Save(&oldSecret)
+}
+
 /*
 Helper method that retrn the path where the executable live with a db fine added at the end
 */
@@ -159,7 +183,7 @@ func getDatabasePath() (string, error) {
 		return "", err
 	}
 	exeDir := filepath.Dir(exePath)
-	dbPath := filepath.Join(exeDir, "secret.db")
-	fmt.Println(dbPath)
+	dbPath := filepath.Join(exeDir, ".secret.db")
+	// fmt.Println(dbPath)
 	return dbPath, nil
 }

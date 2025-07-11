@@ -4,8 +4,6 @@ Copyright © 2025 maKs <eliteKnow@theyKnowWhere.it>
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/cybervidia/naka/db"
 	"github.com/spf13/cobra"
 )
@@ -16,7 +14,6 @@ var listCmd = &cobra.Command{
 	Short: "List all saved entries",
 	Long:  `Displays a list of all saved entries by their unique names. Passwords are not shown.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("list called")
 		db.ListSecret()
 	},
 }

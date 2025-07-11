@@ -8,7 +8,6 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
-	"fmt"
 	"io"
 
 	"github.com/cybervidia/naka/model"
@@ -42,8 +41,6 @@ func Unlock(record *model.SecretEntry) {
 
 	key := deriveKey(pwdDaChiedereAUser, salt)
 
-	fmt.Println("unlock key:", key)
-
 	plain, err := decryptAESGCM(ciphertext, iv, key)
 	if err != nil {
 		panic(err)
@@ -72,7 +69,6 @@ func Lock(record *model.SecretEntry) {
 	// === CREA LA CHIAVE AES A 256 BIT ===
 	key := deriveKey(pwdDaChiedereAUser, []byte(salt))
 
-	fmt.Println("lock key:", key)
 	// === CIFRA LA PASSWORD === qui cifro la password,
 	// "record.Password" passando anche la key
 	// mi restituisce un array di dati anzi 2,

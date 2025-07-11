@@ -4,8 +4,6 @@ Copyright © 2025 maKs <eliteKnow@theyKnowWhere.it>
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/cybervidia/naka/db"
 	"github.com/spf13/cobra"
 )
@@ -16,7 +14,6 @@ var getCmd = &cobra.Command{
 	Short: "Retrieve a stored password",
 	Long:  `Retrieves and decrypts a password by its unique name. Displays the associated user/email, password, and notes if available.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("get called")
 		db.GetSecret(args[0])
 	},
 }

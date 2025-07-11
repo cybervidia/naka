@@ -6,6 +6,9 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/cybervidia/naka/db"
+	"github.com/cybervidia/naka/model"
+	"github.com/cybervidia/naka/vault"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +18,24 @@ var updateCmd = &cobra.Command{
 	Short: "Update an existing password entry",
 	Long:  `Updates an existing entry in the database with a new user/email, password, or note. The entry must exist and is identified by its unique name.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("update called")
+		//per il momento, punto ad mvp e inserisco i dati da cmd
+		//con il formato:
+		//naka add <unique-name> <mail/username> <pwd> <notes>
+
+		// WARNING forse dovrei chiedere la vecchia password??
+
+		if len(args) != 4 {
+			fmt.Println("syntax error, use:\nnaka add <unique-name> <mail/username> <pwd> <notes>")
+			return
+		}
+		scrt := model.SecretEntry{
+			Name:     args[0],
+			Mail:     args[1],
+			Password: args[2],
+			Note:     args[3],
+		}
+		vault.Lock(&scrt)
+		db.UpdateSecret(&scrt)
 	},
 }
 
