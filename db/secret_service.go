@@ -128,6 +128,28 @@ func GetSecret(name string) {
 	fmt.Println("Testo copiato nella clipboard:", secret.Password)
 }
 
+func DeleteSecret(name string) {
+
+	dbPath, err := getDatabasePath()
+	if err != nil {
+		log.Fatalf("Failed to get database path: %v", err)
+	}
+
+	//Open DB
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	db.AutoMigrate(&model.SecretEntry{})
+
+	secret := model.SecretEntry{}
+	db.First(&secret, "name = ?", name) // carica il record
+	db.Unscoped().Delete(&model.SecretEntry{}, secret.ID)
+
+	fmt.Println("secret deleted:", secret.Name)
+}
+
 /*
 Helper method that retrn the path where the executable live with a db fine added at the end
 */

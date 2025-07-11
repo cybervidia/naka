@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/cybervidia/naka/db"
 	"github.com/spf13/cobra"
 )
 
@@ -15,6 +16,19 @@ var deleteCmd = &cobra.Command{
 	Short: "Delete a stored entry",
 	Long:  `Deletes a password entry from the local database using its unique name. This action is irreversible.`,
 	Run: func(cmd *cobra.Command, args []string) {
+
+		// === start
+		//chiama
+
+		if len(args) == 0 {
+			fmt.Println("you need to specify something to delete, \n for exemple:\nnaks delete <name>")
+			return
+		}
+
+		db.DeleteSecret(args[0])
+
+		// === end
+
 		fmt.Println("delete called")
 	},
 }
