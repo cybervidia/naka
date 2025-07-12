@@ -2,7 +2,7 @@
 
 set -e
 
-APP_NAME="bookmark"
+APP_NAME="naka"
 SRC_FILE="main.go"
 RELEASE_DIR="Releases"
 FILES_TO_INCLUDE="README.md LICENSE"
