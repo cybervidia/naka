@@ -37,6 +37,9 @@ go install github.com/yourusername/naka@latest
 ```bash
 naka add <Unique_Name> <Mail/User> <Password_to_Store> <Note/pwd_suggestion>
 ```
+>[DANGER]+ ⚠️ Warning: passwords/secrets you want to store might remain in the shell history. It's recommended using the -p flag.
+Example: ```sh naka add -p <unique_name> <mail> <notes> ```
+
 
 ### Get a saved password
 
