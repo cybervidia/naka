@@ -8,6 +8,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
 	"io"
 
 	"github.com/cybervidia/naka/model"
@@ -55,9 +56,20 @@ func Lock(record *model.SecretEntry) {
 	//chiedo la password all'utente e la copro con 中 per non farla vedere
 	pwdInput := pterm.DefaultInteractiveTextInput.WithMask("中")
 	pwdDaChiedereAUser, err := pwdInput.Show("中put your seal here")
-
 	if err != nil {
 		panic(err)
+	}
+
+	pwdVerify, err := pwdInput.Show("中 verify your seal here")
+	if err != nil {
+		panic(err)
+	}
+
+	if pwdDaChiedereAUser != pwdVerify {
+		fmt.Println("broken seal 中")
+		panic("aaaarrgh")
+	} else {
+		fmt.Println("verify success")
 	}
 
 	salt := make([]byte, 16) // 16 bytes = 128 bit
