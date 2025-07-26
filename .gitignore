@@ -37,10 +37,11 @@ go.work.sum
 #Actual build
 naka
 Releases/
-build.sh
+log.md
 
 #Mac
 .DS_Store
 
 #Reference & Notes
 crypt_for_reference.go
+log.md

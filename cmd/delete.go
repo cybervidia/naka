@@ -12,7 +12,7 @@ import (
 
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
-	Use:   "delete",
+	Use:   "delete [name]",
 	Short: "Delete a stored entry",
 	Long:  `Deletes a password entry from the local database using its unique name. This action is irreversible.`,
 	Run: func(cmd *cobra.Command, args []string) {

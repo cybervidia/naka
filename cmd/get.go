@@ -12,7 +12,7 @@ import (
 var getCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Retrieve a stored password",
-	Long:  `Retrieves and decrypts a password by its unique name. Displays the associated user/email, password, and notes if available.`,
+	Long:  `Retrieves and decrypts a password by its unique name and it will be copied to the clipboard`,
 	Run: func(cmd *cobra.Command, args []string) {
 		db.GetSecret(args[0])
 	},

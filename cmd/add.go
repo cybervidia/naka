@@ -15,7 +15,7 @@ import (
 
 // addCmd represents the add command
 var addCmd = &cobra.Command{
-	Use:   "add",
+	Use:   "add [<unique-name> <mail> <pwd> <notes>]",
 	Short: "Add a new password entry",
 	Long: `Adds a new password entry to the local encrypted database. The entry must have a unique name, a user or email, the password to store, and an optional note or suggestion.
 	Syntax:
@@ -24,13 +24,11 @@ var addCmd = &cobra.Command{
 	naka add maks info@me.it S3crEt@pWd the_pwd_used_in_dev`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		//per il momento, punto ad mvp e inserisco i dati da cmd
-		//con il formato:
 		//naka add <unique-name> <mail> <pwd> <notes>
 
 		//se c'è il flag -p
 
-		//naka add <unique-name> <mail> <notes>
+		//naka add -p <unique-name> <mail> <notes>
 		scrt := model.SecretEntry{}
 		pwdFlag, err := cmd.Flags().GetBool("pwd")
 		if err != nil {
@@ -58,7 +56,7 @@ var addCmd = &cobra.Command{
 			pterm.Warning.Println("passwords/secrets you want to store might remain in the shell history.\nI recommend using the -p flag.\nExample:naka add -p <unique_name> <mail> <notes>")
 
 			if len(args) != 4 {
-				fmt.Println("syntax error, use:\nnaka add <unique-name> <mail/username> <pwd> <notes>")
+				fmt.Println("Syntax Error, use:\nnaka add <unique-name> <mail/username> <pwd> <notes>")
 				return
 			}
 			scrt = model.SecretEntry{
@@ -84,5 +82,5 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	addCmd.Flags().BoolP("pwd", "p", false, "ask for password in a secure unseen way")
+	addCmd.Flags().BoolP("pwd", "p", false, "ask for password in a secure unseen way\nSyntax:\nnaka add -p <unique-name> <mail> <notes>\nEx:\nnaka add -p maks info@me.it the_pwd_used_in_dev")
 }

@@ -6,21 +6,27 @@ ooo. .oo.    .oooo.    888  oooo   .oooo.
  888   888   .oP"888   888888.     .oP"888  
  888   888  d8(  888   888 `88b.  d8(  888  
 o888o o888o `Y888""8o o888o o888o `Y888""8o 
-                                            
+
         [ 中 ] naka
      "The key is inside."
 ```
+
 # naka
 > `[ 中 ] naka — The key is inside.`
 
 **naka** is a simple and secure command-line password manager written in Go.  
 It lets you add, retrieve, update, and delete passwords stored locally in an encrypted SQLite database.
 
+---
+
 ## 🚀 Features
-- Local storage only (no cloud, no sync)
+
+- Local-only storage (no cloud, no sync)
 - AES-GCM encryption
 - Minimalistic and fast CLI experience
 - Written in Go using Cobra and GORM
+
+---
 
 ## 📦 Installation
 
@@ -28,7 +34,11 @@ You need [Go](https://golang.org/dl/) installed. Then run:
 
 ```bash
 go install github.com/yourusername/naka@latest
-````
+```
+
+Alternatively, download the build for your operating system and copy it to a directory of your choice.
+
+---
 
 ## 🧪 Command Syntax
 
@@ -37,9 +47,26 @@ go install github.com/yourusername/naka@latest
 ```bash
 naka add <Unique_Name> <Mail/User> <Password_to_Store> <Note/pwd_suggestion>
 ```
->[DANGER] ⚠️ Warning: passwords/secrets you want to store might remain in the shell history. It's recommended using the -p flag.
-Example: ```sh naka add -p <unique_name> <mail> <notes> ```
 
+Add your password when prompted for the seal:
+
+```bash
+naka add mks mail@mail.com mysecretpwd name_of_my_pet
+```
+
+> ⚠️ **Warning:** Passwords/secrets passed as command-line arguments might remain in your shell history.  
+> It is **strongly recommended** to use the `-p` flag to enter the password interactively.
+
+**Example:**
+
+```bash
+❯ naka add -p maks mail@mail.com mypetname
+中 Put your secret to seal here: 中中中中中
+中 Put your seal here: 中中中中中
+✅ Secret <maks> successfully inserted
+```
+
+---
 
 ### Get a saved password
 
@@ -47,11 +74,17 @@ Example: ```sh naka add -p <unique_name> <mail> <notes> ```
 naka get <Unique_Name>
 ```
 
+> The password will be copied to the clipboard.
+
+---
+
 ### Delete a password
 
 ```bash
 naka delete <Unique_Name>
 ```
+
+---
 
 ### List all saved entries
 
@@ -59,11 +92,24 @@ naka delete <Unique_Name>
 naka list
 ```
 
+Example output:
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+| Name | Mail          | Password                             | Note           |
+| mks  | mail@mail.com | mJhG6HQI7RWa575adhqk6luBKCfbuehOKdAu | name_of_my_pet |
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ### Update an existing password
 
 ```bash
 naka update <Unique_Name> <Mail/User> <Password_to_Store> <Note/pwd_suggestion>
 ```
+
+---
 
 ## 📌 Example
 
@@ -75,32 +121,31 @@ naka list
 naka delete github_user
 ```
 
+---
+
 ## 🔐 Security Notes
 
 - Passwords are encrypted with AES-GCM before being stored.
-    
-- The encryption key is derived from a master passphrase (not stored).
-    
-- Make sure to use a strong passphrase when prompted.
-    
+- The encryption key is derived from a master passphrase (which is **never stored**).
+- Always use a strong passphrase when prompted.
+
+---
 
 ## 🧱 Tech Stack
 
 - [Go](https://golang.org/)
-    
 - [Cobra](https://github.com/spf13/cobra)
-    
 - [GORM](https://gorm.io/)
-    
 - [SQLite](https://www.sqlite.org/index.html)
-
 - [PTerm](https://github.com/pterm/pterm)
-    
-
-## 🗝️ License
-
-GNU GENERAL PUBLIC LICENSE — see LICENSE
+- [Atotto Clipboard](https://github.com/atotto/clipboard)
 
 ---
 
-Made with ❤️ by maKs 
+## 🗝️ License
+
+**GNU GENERAL PUBLIC LICENSE** — see `LICENSE`
+
+---
+
+Made with ❤️ by **maKs**
