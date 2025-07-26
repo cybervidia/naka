@@ -33,7 +33,7 @@ It lets you add, retrieve, update, and delete passwords stored locally in an enc
 You need [Go](https://golang.org/dl/) installed. Then run:
 
 ```bash
-go install github.com/yourusername/naka@latest
+go install github.com/cybervidia/naka@latest
 ```
 
 Alternatively, download the build for your operating system and copy it to a directory of your choice.
