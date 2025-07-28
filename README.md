@@ -8,7 +8,7 @@ ooo. .oo.    .oooo.    888  oooo   .oooo.
 o888o o888o `Y888""8o o888o o888o `Y888""8o 
 
         [ 中 ] naka
-     "The key is inside."
+     "The key is inside."            v0.1.3
 ```
 
 # naka
@@ -94,11 +94,30 @@ naka list
 
 Example output:
 
+```sh
+┌──────────────────────────────────────────────────────────────┐
+| Name  | Mail  | Tag   | Password                     | Note  |
+| name1 | mail1 | myTag | 1tzRcf6SDMuRil5AE8NI/CLX7HU= | note1 |
+| name2 | mail2 |       | icW/C4adk4pO+T35+Ft6nF5e+oM= | note2 |
+| name3 | mail3 | myTag | LQXQg5LuVWMf+/fiKJlHil9ACM4= | note3 |
+|                                                              |
+└──────────────────────────────────────────────────────────────┘
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-| Name | Mail          | Password                             | Note           |
-| mks  | mail@mail.com | mJhG6HQI7RWa575adhqk6luBKCfbuehOKdAu | name_of_my_pet |
-└──────────────────────────────────────────────────────────────────────────────┘
+
+### List flag
+
+--tag or -t = filter by tag
+
+Example output:
+
+```bash
+naka list -t myTag
+┌──────────────────────────────────────────────────────────────┐
+| Name  | Mail  | Tag   | Password                     | Note  |
+| name1 | mail1 | myTag | 1tzRcf6SDMuRil5AE8NI/CLX7HU= | note1 |
+| name3 | mail3 | myTag | LQXQg5LuVWMf+/fiKJlHil9ACM4= | note3 |
+|                                                              |
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---

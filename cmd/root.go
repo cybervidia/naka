@@ -28,7 +28,7 @@ It lets you add, retrieve, update, and delete passwords stored locally in an enc
 			"o888o o888o `Y888\"\"8o o888o o888o `Y888\"\"8o \n" +
 			"                                            \n" +
 			"        [ 中 ] naka\n" +
-			"     \"The key is inside.\"")
+			"     \"The key is inside.\"            v0.1.3")
 	},
 }
 
