@@ -85,13 +85,14 @@ func ListSecret(tag string) {
 
 	// Creazione della tabella
 	tableData := pterm.TableData{
-		{"Name", "Mail", "Password", "Note"},
+		{"Name", "Mail", "Tag", "Password", "Note"},
 	}
 
 	for _, secret := range secrets {
 		row := []string{
 			secret.Name,
 			secret.Mail,
+			secret.Tag,
 			secret.Password,
 			secret.Note,
 		}
