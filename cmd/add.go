@@ -89,5 +89,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	addCmd.Flags().BoolP("pwd", "p", false, "ask for password in a secure unseen way\nSyntax:\nnaka add -p <unique-name> <mail> <notes>\nEx:\nnaka add -p maks info@me.it the_pwd_used_in_dev")
-	addCmd.Flags().StringP("tag", "t", "#default", "add a tag to categorize your password/secret")
+	addCmd.Flags().StringP("tag", "t", "", "add a tag to categorize your password/secret")
 }

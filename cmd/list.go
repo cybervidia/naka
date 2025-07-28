@@ -14,7 +14,13 @@ var listCmd = &cobra.Command{
 	Short: "List all saved entries",
 	Long:  `Displays a list of all saved entries by their unique names. Passwords are not shown.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		db.ListSecret()
+
+		userTagFlag, err := cmd.Flags().GetString("tag")
+		if err != nil {
+			panic(err)
+		}
+
+		db.ListSecret(userTagFlag)
 	},
 }
 
@@ -30,4 +36,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	listCmd.Flags().StringP("tag", "t", "", "add a tag to categorize your password/secret")
 }

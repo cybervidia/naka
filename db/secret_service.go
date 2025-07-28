@@ -51,7 +51,8 @@ func AddSecret(secret *model.SecretEntry) {
 
 }
 
-func ListSecret() {
+func ListSecret(tag string) {
+
 	dbPath, err := getDatabasePath()
 	if err != nil {
 		log.Fatalf("Failed to get database path: %v", err)
@@ -68,7 +69,13 @@ func ListSecret() {
 
 	var secrets []model.SecretEntry
 
-	result := db.Find(&secrets)
+	var result *gorm.DB
+
+	if tag == "" {
+		result = db.Find(&secrets)
+	} else {
+		result = db.Where("tag = ?", tag).Find(&secrets)
+	}
 
 	err = result.Error // returns error
 
